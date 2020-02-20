@@ -22,7 +22,7 @@ static libusbp_error * get_driver_name(
     // Windows service is assigned to this device.
     CHAR service[64];
     DWORD data_type;
-    bool success = SetupDiGetDeviceRegistryProperty(list, info, SPDRP_SERVICE,
+    bool success = SetupDiGetDeviceRegistryPropertyA(list, info, SPDRP_SERVICE,
         &data_type, (BYTE *)&service, sizeof(service), NULL);
     if (!success)
     {
@@ -78,7 +78,7 @@ static libusbp_error * check_driver_installation(
 
     // We really don't want this comparison to be affected by the user's locale,
     // since that will probably just mess things up.
-    int result = CompareString(LOCALE_INVARIANT, NORM_IGNORECASE,
+    int result = CompareStringA(LOCALE_INVARIANT, NORM_IGNORECASE,
         *driver_name, -1, "winusb", -1);
     if (result == CSTR_EQUAL)
     {

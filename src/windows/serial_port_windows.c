@@ -77,7 +77,7 @@ libusbp_error * libusbp_serial_port_create(
     {
         DWORD size = sizeof(portName);
         DWORD reg_type;
-        LONG reg_result = RegQueryValueEx(keyDev, "PortName",
+        LONG reg_result = RegQueryValueExA(keyDev, "PortName",
             NULL, &reg_type, (BYTE *)portName, &size);
         if (reg_result != ERROR_SUCCESS)
         {

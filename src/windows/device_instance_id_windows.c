@@ -13,7 +13,7 @@ libusbp_error * create_id_string(HDEVINFO list, PSP_DEVINFO_DATA info, char ** i
         return &error_no_memory;
     }
 
-    bool success = SetupDiGetDeviceInstanceId(list, info, new_id, size, NULL);
+    bool success = SetupDiGetDeviceInstanceIdA(list, info, new_id, size, NULL);
     if (!success)
     {
         free(new_id);

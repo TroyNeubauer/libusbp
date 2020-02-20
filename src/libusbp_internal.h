@@ -16,7 +16,7 @@
 #endif
 
 // Silence some warnings from the Microsoft C Compiler.
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)//Only define _CRT_SECURE_NO_WARNINGS on windows and if it hasnt been defined already
 #define _CRT_SECURE_NO_WARNINGS
 #define strdup _strdup
 #endif

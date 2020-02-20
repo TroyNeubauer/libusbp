@@ -55,7 +55,7 @@ libusbp_error * libusbp_generic_handle_open(
     // ERROR_NOT_FOUND if the device was recently unplugged.
     if (error == NULL)
     {
-        new_gh->file_handle = CreateFile(filename,
+        new_gh->file_handle = CreateFileA(filename,
             GENERIC_READ | GENERIC_WRITE,
             FILE_SHARE_READ | FILE_SHARE_WRITE,
             NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);

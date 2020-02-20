@@ -38,7 +38,7 @@ static libusbp_error * device_get_hardware_ids(
     DWORD size = 0;
     if (error == NULL)
     {
-        BOOL success = SetupDiGetDeviceRegistryProperty(list, info,
+        BOOL success = SetupDiGetDeviceRegistryPropertyA(list, info,
             SPDRP_HARDWAREID, &data_type, NULL, 0, &size);
         if (!success && GetLastError() != ERROR_INSUFFICIENT_BUFFER)
         {
@@ -60,7 +60,7 @@ static libusbp_error * device_get_hardware_ids(
     // Get the actual hardware IDs.
     if (error == NULL)
     {
-        BOOL success = SetupDiGetDeviceRegistryProperty(list, info,
+        BOOL success = SetupDiGetDeviceRegistryPropertyA(list, info,
             SPDRP_HARDWAREID, &data_type, (unsigned char *)new_ids, size, NULL);
         if (!success)
         {

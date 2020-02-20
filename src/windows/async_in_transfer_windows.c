@@ -125,7 +125,7 @@ libusbp_error * async_in_transfer_create(
     HANDLE new_event = INVALID_HANDLE_VALUE;
     if (error == NULL)
     {
-        new_event = CreateEvent(NULL, false, false, NULL);
+        new_event = CreateEventA(NULL, false, false, NULL);
         if (new_event == NULL)
         {
             error = error_create_winapi(

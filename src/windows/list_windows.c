@@ -44,7 +44,7 @@ libusbp_error * libusbp_list_connected_devices(libusbp_device *** device_list,
     HDEVINFO handle = INVALID_HANDLE_VALUE;
     if (error == NULL)
     {
-        handle = SetupDiGetClassDevs(&GUID_DEVINTERFACE_USB_DEVICE, NULL, 0,
+        handle = SetupDiGetClassDevsA(&GUID_DEVINTERFACE_USB_DEVICE, NULL, 0,
             DIGCF_DEVICEINTERFACE | DIGCF_PRESENT);
         if (handle == INVALID_HANDLE_VALUE)
         {

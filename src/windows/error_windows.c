@@ -44,7 +44,7 @@ static libusbp_error * error_create_winapi_v(
     if (!skip_windows_message)
     {
         char buffer[256];
-        DWORD size = FormatMessage(
+        DWORD size = FormatMessageA(
             FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_MAX_WIDTH_MASK,
             NULL, error_code,
             MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), buffer,

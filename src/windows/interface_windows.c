@@ -24,7 +24,7 @@ static libusbp_error * get_interface_non_composite(
     HDEVINFO new_list = INVALID_HANDLE_VALUE;
     if (error == NULL)
     {
-        new_list = SetupDiGetClassDevs(&GUID_DEVINTERFACE_USB_DEVICE, NULL, 0,
+        new_list = SetupDiGetClassDevsA(&GUID_DEVINTERFACE_USB_DEVICE, NULL, 0,
             DIGCF_DEVICEINTERFACE | DIGCF_PRESENT);
         if (list == INVALID_HANDLE_VALUE)
         {
@@ -52,7 +52,7 @@ static libusbp_error * get_interface_non_composite(
                 break;
             }
 
-            success = SetupDiGetDeviceInstanceId(new_list, &device_info_data,
+            success = SetupDiGetDeviceInstanceIdA(new_list, &device_info_data,
                 id, sizeof(id), NULL);
             if (!success)
             {
@@ -99,7 +99,7 @@ static libusbp_error * get_interface_composite(
     // Get the DEVINST for this device.
     CONFIGRET cr;
     DEVINST dev_inst;
-    cr = CM_Locate_DevNode(&dev_inst, (char *)device_instance_id, CM_LOCATE_DEVNODE_NORMAL);
+    cr = CM_Locate_DevNodeA(&dev_inst, (char *)device_instance_id, CM_LOCATE_DEVNODE_NORMAL);
     if (cr != CR_SUCCESS)
     {
         libusbp_error * error = error_create_cr(cr,
@@ -114,7 +114,7 @@ static libusbp_error * get_interface_composite(
     }
 
     // Get a list of all the USB-related devices.
-    HDEVINFO new_list = SetupDiGetClassDevs(NULL, "USB", NULL,
+    HDEVINFO new_list = SetupDiGetClassDevsA(NULL, "USB", NULL,
         DIGCF_ALLCLASSES | DIGCF_PRESENT);
     if (new_list == INVALID_HANDLE_VALUE)
     {
@@ -167,7 +167,7 @@ static libusbp_error * get_interface_composite(
 
         // Get the device instance ID.
         char device_id[MAX_DEVICE_ID_LEN + 1];
-        cr = CM_Get_Device_ID(device_info_data.DevInst, device_id, sizeof(device_id), 0);
+        cr = CM_Get_Device_IDA(device_info_data.DevInst, device_id, sizeof(device_id), 0);
         if (cr != CR_SUCCESS)
         {
             libusbp_error * error = error_create_cr(cr,
@@ -226,7 +226,7 @@ libusbp_error * get_filename_from_devinst_and_guid(
     BOOL success;
 
     // Make a list of devices that have the specified device interface GUID.
-    HDEVINFO list = SetupDiGetClassDevs(guid, NULL, NULL, DIGCF_DEVICEINTERFACE | DIGCF_PRESENT);
+    HDEVINFO list = SetupDiGetClassDevsA(guid, NULL, NULL, DIGCF_DEVICEINTERFACE | DIGCF_PRESENT);
     if (list == INVALID_HANDLE_VALUE)
     {
         return error_create_winapi(
@@ -296,7 +296,7 @@ libusbp_error * get_filename_from_devinst_and_guid(
         return &error_no_memory;
     }
     device_interface_detail_data->cbSize = sizeof(SP_DEVICE_INTERFACE_DETAIL_DATA_A);
-    success = SetupDiGetDeviceInterfaceDetail(list, &device_interface_data,
+    success = SetupDiGetDeviceInterfaceDetailA(list, &device_interface_data,
         device_interface_detail_data, size, NULL, NULL);
     if (!success)
     {
